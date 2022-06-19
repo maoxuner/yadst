@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# https://github.com/Jamesits/docker-dst-server/issues/6
+if [[ "$SERVER_ARCH" = "x86" ]]; then
+    cd $STEAMAPPDIR/bin
+    cmd=./dontstarve_dedicated_server_nullrenderer
+elif [[ "$SERVER_ARCH" = "amd64" ]]; then
+    cd $STEAMAPPDIR/bin64
+    cmd=./dontstarve_dedicated_server_nullrenderer_x64
+else
+    echo "unknown architecture: $SERVER_ARCH"
+    exit 1
+fi
+
+exec $cmd "$@"

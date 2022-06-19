@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+file="$STORAGE_PATH/$CLUSTER_NAME/cluster_token.txt"
+
+if [[ -n "$CLUSTER_TOKEN" ]] && [[ ! -f "$file" ]]; then
+    echo "Generate cluster token file from environment"
+    echo "$CLUSTER_TOKEN" > "$file"
+fi

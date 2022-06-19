@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ "$1" = 'yadst' ]]; then
+    if [[ -d /scripts/before ]]; then
+        echo "Execute custom scripts before boot"
+        run-parts --exit-on-error /scripts/before
+    fi
+
+    echo "Execute boot scripts"
+    run-parts --exit-on-error "$YADST_PATH/boot"
+
+    if [[ -d /scripts/after ]]; then
+        echo "Execute custom scripts after boot"
+        run-parts --exit-on-error /scripts/before
+    fi
+fi
+
+exec "$@"

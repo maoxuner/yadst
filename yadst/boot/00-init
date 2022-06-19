@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+mkdir -p "$STORAGE_PATH/$CLUSTER_NAME/$SHARD_NAME"

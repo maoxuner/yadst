@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+exec dontstarve_dedicated_server_nullrenderer \
+    -persistent_storage_root "$(dirname $STORAGE_PATH)" \
+    -conf_dir "$(basename $STORAGE_PATH)" \
+    -cluster "$CLUSTER_NAME" \
+    -shard "$SHARD_NAME" \
+    -ugc_directory "$STEAMAPPDIR/ugc_mods/" \
+    "$@"

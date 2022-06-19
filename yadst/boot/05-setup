@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+source "$YADST_PATH/utils/functions.sh"
+
+if [[ ! -f $STEAMAPPDIR/version.txt ]]; then
+    if [[ -n "$SERVER_ARCHIVE_URL" ]]; then
+        mkdir -p "$STEAMAPPDIR"
+        echo "Download server files from private server"
+        warning "WARNING: WILL NOT VALIDATE FILES"
+        curl -sfL "$SERVER_ARCHIVE_URL" | tar -xz -C "$STEAMAPPDIR"
+    else
+        echo "Download server files from official server"
+        yadst update
+    fi
+fi
+
+echo "Current server version $(yadst version --local)"
