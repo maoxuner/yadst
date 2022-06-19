@@ -1,5 +1,7 @@
 # Yet Another DST Server
 
+[![Build Status](https://drone.fat4.cn/api/badges/maoxuner/yadst/status.svg?ref=refs/heads/master)](https://drone.fat4.cn/maoxuner/yadst)
+
 Optimized for mutliple shards(>=3). Every shard run in a single container. Lightweight but powerful.
 
 ## Features

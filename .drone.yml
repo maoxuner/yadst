@@ -1,0 +1,120 @@
+kind: pipeline
+type: kubernetes
+name: default
+
+clone:
+  depth: 1
+  skip_verify: true
+
+steps:
+  - name: build
+    image: plugins/docker
+    volumes:
+      - name: dockersock
+        path: /var/run
+    settings:
+      # mirror: https://mirror.ccs.tencentyun.com
+      # mirror: https://nex18i4o.mirror.aliyuncs.com
+      # mtu: 1450
+      daemon_off: "true"
+      # dry_run: "true"
+      # context: .
+      dockerfile: Dockerfile
+      tags:
+        - latest
+      repo: maoxuner/yadst
+      username: maoxuner
+      password:
+        from_secret: docker-password
+
+  - name: notify
+    image: lddsb/drone-dingtalk-message:1.2.8
+    settings:
+      success_token:
+        from_secret: dingtalk-success-token
+      success_secret:
+        from_secret: dingtalk-success-secret
+      failure_token:
+        from_secret: dingtalk-failure-token
+      failure_secret:
+        from_secret: dingtalk-failure-secret
+      lang: zh_CN
+      msg_type: markdown
+      msg_at_all: false
+    commands:
+      - set -e
+      - |
+        # DRONE_BUILD_STATUS always success in Kubernetes
+        # https://discourse.drone.io/t/drone-build-status-always-success-in-kubernetes/6627
+        if [ -f /run/drone/env ]; then
+            grep DRONE_ /run/drone/env > /tmp/env
+            source /tmp/env
+        fi
+      - |
+        if [ $DRONE_BUILD_STATUS = "success" ]; then
+            export PLUGIN_TOKEN=$PLUGIN_SUCCESS_TOKEN
+            export PLUGIN_SECRET=$PLUGIN_SUCCESS_SECRET
+        else
+            export PLUGIN_TOKEN=$PLUGIN_FAILURE_TOKEN
+            export PLUGIN_SECRET=$PLUGIN_FAILURE_SECRET
+        fi
+      - /bin/drone-dingtalk
+    when:
+      status:
+        - success
+        - failure
+
+services:
+  - name: docker
+    image: docker:20.10.16-dind
+    privileged: true
+    volumes:
+      - name: dockersock
+        path: /var/run
+    command:
+      - "--data-root"
+      - "/var/lib/docker"
+      - "--host=unix:///var/run/docker.sock"
+      - "--registry-mirror"
+      - "https://mirror.ccs.tencentyun.com"
+      - "--mtu"
+      - "1450"
+
+volumes:
+  - name: dockersock
+    temp: {}
+
+---
+kind: secret
+name: docker-password
+get:
+  path: drone-docker-registry
+  name: password
+
+---
+kind: secret
+name: dingtalk-success-token
+get:
+  path: drone-dingtalk-robot
+  name: success_token
+
+---
+kind: secret
+name: dingtalk-success-secret
+get:
+  path: drone-dingtalk-robot
+  name: success_secret
+
+---
+kind: secret
+name: dingtalk-failure-token
+get:
+  path: drone-dingtalk-robot
+  name: failure_token
+
+---
+kind: secret
+name: dingtalk-failure-secret
+get:
+  path: drone-dingtalk-robot
+  name: failure_secret
