@@ -3,6 +3,7 @@ FROM cm2network/steamcmd:root
 RUN set -e; \
     sed -i 's/deb.debian.org/mirrors.tencent.com/g' /etc/apt/sources.list; \
     sed -i 's/security.debian.org/mirrors.tencent.com/g' /etc/apt/sources.list; \
+    dpkg --add-architecture i386; \
     apt update; \
     apt install -y --no-install-recommends --no-install-suggests \
         libcurl4-gnutls-dev \
