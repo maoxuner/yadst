@@ -1,0 +1,39 @@
+version: "3"
+services:
+  master-shard:
+    image: yadst-runtime
+    build: ./docker
+    working_dir: /opt/dst/game/bin64
+    entrypoint: ./dontstarve_dedicated_server_nullrenderer_x64
+    command:
+      - -persistent_storage_root
+      - /opt/dst/data
+      - -conf_dir
+      - DoNotStarveTogether
+      - -cluster
+      - MyDediServer
+      - -shard
+      - Master
+    volumes:
+      - ./server/game:/opt/dst/game
+      - ./server/data:/opt/dst/data
+    ports:
+      - 11000-11001/udp
+  caves-shard:
+    image: yadst-runtime
+    build: ./docker
+    working_dir: /opt/dst/game/bin64
+    entrypoint: ./dontstarve_dedicated_server_nullrenderer_x64
+    command:
+      - -persistent_storage_root
+      - /opt/dst/data
+      - -conf_dir
+      - DoNotStarveTogether
+      - -cluster
+      - MyDediServer
+      - -shard
+      - Caves
+    volumes:
+      - ./server/game:/opt/dst/game
+      - ./server/data:/opt/dst/data
+    network_mode: service:master-shard
