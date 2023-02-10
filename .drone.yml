@@ -10,9 +10,9 @@ steps:
       context: docker
       dockerfile: docker/Dockerfile
       tags:
-        - latest
-        - ubuntu
         - ubuntu-22
+        - ubuntu
+        - latest
       repo: maoxuner/yadst
       username: maoxuner
       password:
