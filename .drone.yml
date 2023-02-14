@@ -7,7 +7,7 @@ steps:
     image: plugins/docker
     volumes:
       - name: docker-socket
-        path: /var/run/docker.sock
+        path: /run/docker.sock
     settings:
       mtu: 1450
       context: docker
@@ -53,7 +53,7 @@ steps:
 volumes:
   - name: docker-socket
     host:
-      path: /var/run/docker.sock
+      path: /run/docker.sock
 
 ---
 kind: secret
