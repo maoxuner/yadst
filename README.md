@@ -15,9 +15,14 @@ Optimized for mutliple shards(>=3). Every shard run in a single container.
 
 ## Guidings
 
-1. Generate a cluster token and download base cluster config from next link<br>
+1. Clone the project and change your working directory
+   ```bash
+   git clone https://github.com/maoxuner/yadst.git
+   cd yadst
+   ```
+2. Generate a cluster token and download base cluster config from next link<br>
    https://accounts.klei.com/account/game/servers?game=DontStarveTogether
-2. Extract downloaded files to `data/DoNotStarveTogether/MyDediServer`
+3. Extract downloaded files to `server/data/DoNotStarveTogether/MyDediServer`
    ```
    server/data/DoNotStarveTogether
    └── MyDediServer
@@ -30,15 +35,15 @@ Optimized for mutliple shards(>=3). Every shard run in a single container.
            ├── server.ini
            └── worldgenoverride.lua
    ```
-3. Download game files
+4. Download game files
    ```bash
    docker run --rm -v $PWD/server/game:/opt/dst/game steamcmd/steamcmd +force_install_dir /opt/dst/game +login anonymous +app_update 343050 validate +quit
    ```
-4. Build runtime image (or use yadst image)
+5. Build runtime image (or use yadst image)
    ```bash
    docker compose build master-shard
    ```
-5. After game files downloaded, start game servers
+6. After game files downloaded, start game servers
    ```bash
    docker compose up -d
    ```
