@@ -6,6 +6,8 @@ services:
   - name: docker
     image: docker:dind
     privileged: true
+    commands:
+      - dockerd-entrypoint.sh --mtu=1450
     volumes:
       - name: docker-runtime
         path: /run
@@ -18,6 +20,7 @@ steps:
         path: /run
     settings:
       mtu: 1450
+      daemon_off: true
       context: docker
       dockerfile: docker/Dockerfile
       tags:
@@ -58,6 +61,7 @@ steps:
       status:
         - success
         - failure
+
 volumes:
   - name: docker-runtime
     temp: {}
