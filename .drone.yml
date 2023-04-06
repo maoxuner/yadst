@@ -22,7 +22,7 @@ steps:
       mtu: 1450
       daemon_off: true
       context: docker
-      dockerfile: docker/Dockerfile
+      dockerfile: Dockerfile
       tags:
         - ubuntu-22
         - ubuntu
@@ -31,6 +31,16 @@ steps:
       username: maoxuner
       password:
         from_secret: docker-password
+
+  - name: pushrm
+    image: chko/docker-pushrm
+    environment:
+      DOCKER_USER:
+        from_secret: docker-username
+      DOCKER_PASS:
+        from_secret: docker-password
+      PUSHRM_TARGET: docker.io/maoxuner/yadst
+      PUSHRM_DEBUG: 1
 
   - name: notify
     image: lddsb/drone-dingtalk-message:1.2.8
@@ -65,6 +75,13 @@ steps:
 volumes:
   - name: docker-runtime
     temp: {}
+
+---
+kind: secret
+name: docker-username
+get:
+  path: drone-docker-registry
+  name: DOCKER_USERNAME
 
 ---
 kind: secret
