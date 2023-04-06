@@ -21,14 +21,14 @@ steps:
     settings:
       mtu: 1450
       daemon_off: true
-      context: docker
       dockerfile: Dockerfile
       tags:
         - ubuntu-22
         - ubuntu
         - latest
       repo: maoxuner/yadst
-      username: maoxuner
+      username:
+        from_secret: docker-username
       password:
         from_secret: docker-password
 
