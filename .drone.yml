@@ -40,7 +40,6 @@ steps:
       DOCKER_PASS:
         from_secret: docker-password
       PUSHRM_TARGET: docker.io/maoxuner/yadst
-      PUSHRM_DEBUG: 1
 
   - name: notify
     image: lddsb/drone-dingtalk-message:1.2.8
