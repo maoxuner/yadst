@@ -17,7 +17,7 @@ Optimized for mutliple shards(>=3). Every shard run in a single container.
 
 1. Clone the project and change your working directory
    ```bash
-   git clone https://github.com/maoxuner/yadst.git
+   git clone https://gitee.com/maoxuner/yadst.git
    cd yadst
    ```
 2. Generate a cluster token and download base cluster config from next link<br>
