@@ -6,5 +6,7 @@ all: $(tags)
 $(tags):
 	docker build -t $(repo):$@ .
 
+test: all clean
+
 clean:
 	@docker rmi -f $(addprefix $(repo):, $(tags))
