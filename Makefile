@@ -1,9 +1,10 @@
-TAGS = latest ubuntu ubuntu-22
+repo = maoxuner/yadst
+tags = latest ubuntu ubuntu-22
 
-all: $(TAGS)
+all: $(tags)
 
-$(TAGS):
-	docker build -t maoxuner/yadst:$@ .
+$(tags):
+	docker build -t $(repo):$@ .
 
 clean:
-	@docker rmi -f $(addprefix maoxuner/yadst:, $(TAGS))
+	@docker rmi -f $(addprefix $(repo):, $(tags))
