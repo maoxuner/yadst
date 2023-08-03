@@ -9,4 +9,4 @@ $(tags):
 test: all clean
 
 clean:
-	@docker rmi -f $(addprefix $(repo):, $(tags))
+	docker rmi -f $(addprefix $(repo):, $(tags))
