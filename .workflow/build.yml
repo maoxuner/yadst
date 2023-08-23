@@ -1,0 +1,30 @@
+version: '1.0'
+name: build
+displayName: 构建
+triggers:
+  trigger: auto
+  push:
+    branches:
+      precise:
+        - main
+stages:
+  - name: default
+    displayName: 默认
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: build@docker
+        name: build_docker
+        displayName: 镜像构建
+        type: cert
+        certificate: b34f1b10-ba3e-013b-91d0-1ecb49bdcebb
+        tag: maoxuner/yadst:latest
+        dockerfile: ./Dockerfile
+        context: ''
+        artifacts: []
+        isCache: false
+        parameter: {}
+        notify: []
+        strategy:
+          retry: '0'
