@@ -1,7 +1,5 @@
 # Yet Another DST Server Runtime (x86_64)
 
-[![Build Status](https://drone.fat4.cn/api/badges/maoxuner/yadst/status.svg?ref=refs/heads/main)](https://drone.fat4.cn/maoxuner/yadst)
-
 As to `DoNotStarveTogether Dedicated Server`, I finally realized that `steamcmd` is only a game server files **downloader**. That is to say, what I need is just a game server **runtime**.
 
 Modifying server settings by hand reduces the difficulty of runtime building and improves its compatibility.
