@@ -6,7 +6,10 @@ RUN set -e; \
 
 RUN set -e; \
     apt-get update; \
-    apt-get install -y --no-install-recommends \
+    apt-get install \
+        -o Dpkg::Options::="--force-confdef" \
+        -o Dpkg::Options::="--force-confnew" \
+        -y --no-install-recommends \
         ca-certificates \
         libstdc++6 libgcc-s1 libcurl4-gnutls-dev; \
     rm -rf /var/lib/apt/lists/*
