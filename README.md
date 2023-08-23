@@ -1,6 +1,4 @@
-# Yet Another DST Server
-
-[![Build Status](https://drone.fat4.cn/api/badges/maoxuner/yadst/status.svg?ref=refs/heads/main)](https://drone.fat4.cn/maoxuner/yadst)
+# Yet Another DST Server (BRANCH ABANDONED)
 
 Optimized for mutliple shards(>=3). Every shard run in a single container. Lightweight but powerful.
 
