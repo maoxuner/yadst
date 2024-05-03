@@ -1,5 +1,5 @@
 repo = maoxuner/yadst
-tags = latest ubuntu ubuntu-22
+tags = latest ubuntu ubuntu-24
 
 all: $(tags)
 
