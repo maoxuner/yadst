@@ -2,7 +2,7 @@ version: "3"
 services:
   master-shard:
     image: yadst-runtime
-    build: ./docker
+    build: .
     working_dir: /opt/dst/game/bin64
     entrypoint: ./dontstarve_dedicated_server_nullrenderer_x64
     command:
@@ -21,7 +21,7 @@ services:
       - 11000-11001/udp
   caves-shard:
     image: yadst-runtime
-    build: ./docker
+    build: .
     working_dir: /opt/dst/game/bin64
     entrypoint: ./dontstarve_dedicated_server_nullrenderer_x64
     command:
