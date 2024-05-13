@@ -20,26 +20,33 @@ Optimized for mutliple shards(>=3). Every shard run in a single container.
    ```
 2. Generate a cluster token and download base cluster config from next link<br>
    https://accounts.klei.com/account/game/servers?game=DontStarveTogether
-3. Extract downloaded files to `server/data/DoNotStarveTogether/MyDediServer`
+3. Extract downloaded files to `root-path-of-yadst/server/data/DoNotStarveTogether/MyDediServer`
    ```
-   server/data/DoNotStarveTogether
-   └── MyDediServer
-       ├── Caves
-       │   ├── server.ini
-       │   └── worldgenoverride.lua
-       ├── cluster.ini
-       ├── cluster_token.txt
-       └── Master
-           ├── server.ini
-           └── worldgenoverride.lua
+   root-path-of-yadst/server
+   ├── data
+   │   └── DoNotStarveTogether
+   │       └── MyDediServer
+   │           ├── Caves
+   │           │   ├── server.ini
+   │           │   └── worldgenoverride.lua
+   │           ├── Master
+   │           │   ├── server.ini
+   │           │   └── worldgenoverride.lua
+   │           ├── cluster.ini
+   │           └── cluster_token.txt
+   └── game
    ```
-4. Download game files
+4. Edit world and mods settings [manually]
+5. Build runtime image (or use yadst)
    ```bash
+   docker build -t yadst-runtime .
+   ```
+5. Download game and mods files
+   ```bash
+   # download game
    docker run --rm -v $PWD/server/game:/opt/dst/game steamcmd/steamcmd +force_install_dir /opt/dst/game +login anonymous +app_update 343050 validate +quit
-   ```
-5. Build runtime image (or use yadst image)
-   ```bash
-   docker compose build master-shard
+   # download mods
+   docker run --rm -v $PWD/server/game:/opt/dst/game -v $PWD/server/data:/opt/dst/data -w /opt/dst/game/bin64 yadst-runtime ./dontstarve_dedicated_server_nullrenderer_x64 -ugc_directory /opt/dst/game/ugc_mods -persistent_storage_root /opt/dst/data -conf_dir DoNotStarveTogether -cluster MyDediServer -shard Master -only_update_server_mods
    ```
 6. After game files downloaded, start game servers
    ```bash

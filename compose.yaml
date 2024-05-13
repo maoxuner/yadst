@@ -6,6 +6,8 @@ services:
     working_dir: /opt/dst/game/bin64
     entrypoint: ./dontstarve_dedicated_server_nullrenderer_x64
     command:
+      - -ugc_directory
+      - /opt/dst/game/ugc_mods
       - -persistent_storage_root
       - /opt/dst/data
       - -conf_dir
@@ -14,6 +16,7 @@ services:
       - MyDediServer
       - -shard
       - Master
+      - -skip_update_server_mods
     volumes:
       - ./server/game:/opt/dst/game
       - ./server/data:/opt/dst/data
@@ -25,6 +28,8 @@ services:
     working_dir: /opt/dst/game/bin64
     entrypoint: ./dontstarve_dedicated_server_nullrenderer_x64
     command:
+      - -ugc_directory
+      - /opt/dst/game/ugc_mods
       - -persistent_storage_root
       - /opt/dst/data
       - -conf_dir
@@ -33,6 +38,7 @@ services:
       - MyDediServer
       - -shard
       - Caves
+      - -skip_update_server_mods
     volumes:
       - ./server/game:/opt/dst/game
       - ./server/data:/opt/dst/data
