@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ubuntu:24.04
+FROM ubuntu:24.04
 
 RUN sed -i 's/archive.ubuntu.com/mirrors.tencent.com/g' /etc/apt/sources.list.d/ubuntu.sources; \
     sed -i 's/security.ubuntu.com/mirrors.tencent.com/g' /etc/apt/sources.list.d/ubuntu.sources

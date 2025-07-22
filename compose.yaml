@@ -1,4 +1,3 @@
-version: "3"
 services:
   master-shard:
     image: yadst-runtime
@@ -21,7 +20,9 @@ services:
       - ./server/game:/opt/dst/game
       - ./server/data:/opt/dst/data
     ports:
-      - 11000-11001/udp
+      - 10998-10999
+      - 10998-10999/udp
+
   caves-shard:
     image: yadst-runtime
     build: .
@@ -39,7 +40,6 @@ services:
       - -shard
       - Caves
       - -skip_update_server_mods
-    volumes:
-      - ./server/game:/opt/dst/game
-      - ./server/data:/opt/dst/data
+    volumes_from:
+      - master-shard
     network_mode: service:master-shard
