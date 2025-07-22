@@ -20,8 +20,8 @@ services:
       - ./server/game:/opt/dst/game
       - ./server/data:/opt/dst/data
     ports:
-      - 10998-10999
-      - 10998-10999/udp
+      - 11000-11001
+      - 11000-11001/udp
 
   caves-shard:
     image: yadst-runtime
